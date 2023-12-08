@@ -8,7 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const tweets_api_base_url = "http://localhost:8082";
+  const cars_api_base_url = "http://localhost:8082";
 
   interface GoogleOauthResponse {
     credential?: string;
@@ -20,7 +20,7 @@ export default function Login() {
 
       // Kirim kredensial Google ke backend untuk verifikasi
       const backendResponse = await fetch(
-        tweets_api_base_url +
+        cars_api_base_url +
           "/api/auth/login/google?access_token=" +
           response.credential,
         {
@@ -118,7 +118,7 @@ export default function Login() {
               };
 
               const response = await fetch(
-                tweets_api_base_url + "/api/auth/login",
+                cars_api_base_url + "/api/auth/login",
                 {
                   method: "post",
                   headers: { "Content-Type": "application/json" },

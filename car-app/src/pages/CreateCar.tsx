@@ -16,9 +16,7 @@ const CreateCar = () => {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-
   useEffect(() => {
-
     const checkIsLoggedIn = () => {
       const accessToken = localStorage.getItem("access_token");
 
@@ -26,7 +24,6 @@ const CreateCar = () => {
       else setIsLoggedIn(false);
     };
 
-    
     checkIsLoggedIn();
   }, []);
 
@@ -143,16 +140,20 @@ const CreateCar = () => {
                   >
                     Ukuran
                   </label>
-                  <input
-                    type="ukuran"
+
+                  <select
                     id="ukuran"
                     className="w-80 bg-gray-50 border border-gray-300 text-gray-900 text-sm   focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
-                    placeholder="Masukan Ukuran"
                     required
                     onChange={({ target }) => {
                       setUkuran(target.value);
                     }}
-                  />
+                  >
+                    <option selected>Choose a size</option>
+                    <option value="Large">Large</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Small">Small</option>
+                  </select>
                 </div>
 
                 <div className="mb-5">

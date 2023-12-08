@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Sidebar } from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import LeftBar from "../components/LeftBar";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { id } from "date-fns/locale";
+import { format } from "date-fns";
 
 interface CarEntity {
   id: number;
@@ -31,7 +34,7 @@ const car_base_url = "http://localhost:8082";
 export default function Dashboard() {
   const [cars, setCars] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { carId } = useParams();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,7 +69,7 @@ export default function Dashboard() {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (carId: number) => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
@@ -100,6 +103,7 @@ export default function Dashboard() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           deleted_by: deletedBy,
@@ -110,7 +114,8 @@ export default function Dashboard() {
         const data = await response.json();
         throw new Error(data.message);
       }
-      // Handle berhasil menghapus, mungkin perlu menyegarkan halaman atau mengubah state lokal
+      
+      window.location.reload(); // agar ada animasi reload
     } catch (error) {
       alert(error.message);
     }
@@ -198,7 +203,13 @@ export default function Dashboard() {
                           />
                         </td>
                         <td className="border px-4 py-2 border-gray-300">
-                          {car.created_at?.toLocaleString()}
+                          {format(
+                            new Date(car.created_at),
+                            "dd MMMM yyyy HH:mm",
+                            {
+                              locale: id,
+                            }
+                          )}
                         </td>
                         <td className="border px-4 py-2 border-gray-300">
                           {" "}
@@ -217,7 +228,7 @@ export default function Dashboard() {
                             <button
                               className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-5"
                               type="button"
-                              onClick={handleDelete}
+                              onClick={() => handleDelete(car.id)}
                             >
                               Delete
                             </button>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
   return (
-    <div className="flex flex-col gap-y-5 bg-[#0D28A6] w-[80px] items-center min-h-screen  ">
+    <div className="flex flex-col gap-y-5 bg-[#0D28A6] w-[80px]  min-h-screen  ">
       <div className=" "></div>
       <Link
         to="/"
@@ -21,7 +21,7 @@ export const Sidebar = () => {
         Dashboard
       </Link>
       <Link
-        to="/dashboard"
+        to="/listcars"
         className="grid justify-center content-center text-white"
       >
         <div className="grid justify-center">
