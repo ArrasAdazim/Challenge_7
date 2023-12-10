@@ -13,7 +13,7 @@ export default function LeftBar() {
       </Link>
       <Link
         to={"/dashboard"}
-        className=" h-10 w-full py-3 pl-6 hover:bg-[#CFD4ED]font-bold text-sm "
+        className=" h-10 w-full py-3 pl-6 hover:bg-[#CFD4ED] font-bold text-sm "
       >
         LIST CAR
       </Link>

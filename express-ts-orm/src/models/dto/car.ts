@@ -21,6 +21,7 @@ interface CarResponse {
   foto: string;
   user: UserResponse;
   created_at?: Date;
+  updated_at?: Date;
 }
 
 export { CarRequest, CarResponse };

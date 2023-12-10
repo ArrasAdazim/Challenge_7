@@ -15,6 +15,7 @@ class CarsService {
         ukuran: car.ukuran,
         foto: car.foto,
         created_at: car.created_at,
+        updated_at: car.updated_at,
         user: {
           id: car.user?.id as number,
           name: car.user?.name as string,

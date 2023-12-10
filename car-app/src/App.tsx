@@ -5,6 +5,11 @@ import Login from "./pages/Login";
 import CreateCar from "./pages/CreateCar";
 import Dashboard from "./pages/Dashboard";
 import ListCars from "./pages/ListCars";
+import UpdateCar from "./pages/UpdateCar";
+
+
+
+
 
 function App() {
   return (
@@ -14,6 +19,7 @@ function App() {
         <Route path="/create-car" element={<CreateCar />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/listcars" element={<ListCars />} />
+        <Route path="/update-car/:carId" element={<UpdateCar/>} />
       </Routes>
     </>
   );

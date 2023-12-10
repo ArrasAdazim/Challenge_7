@@ -5,6 +5,8 @@ import { Sidebar } from "../components/Sidebar";
 import LeftBar from "../components/LeftBar";
 import { useNavigate } from "react-router-dom";
 
+// const car_base_url = "http://localhost:8082";
+
 export default function ListCars() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -32,6 +34,7 @@ export default function ListCars() {
       alert("Logout dibatalkan");
     }
   };
+
   return (
     <div>
       <div className="flex w-full min-h-screen">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { id } from "date-fns/locale";
 import { format } from "date-fns";
 
@@ -26,7 +26,6 @@ const car_base_url = "http://localhost:8082";
 export default function CardCard() {
   const [cars, setCars] = useState([]);
 
-  const carId = useParams();
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -39,7 +38,7 @@ export default function CardCard() {
     fetchCars();
   }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = async (carId: number) => {
     try {
       const accessToken = localStorage.getItem("access_token");
 
@@ -73,6 +72,7 @@ export default function CardCard() {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           deleted_by: deletedBy,
@@ -83,7 +83,8 @@ export default function CardCard() {
         const data = await response.json();
         throw new Error(data.message);
       }
-      // Handle berhasil menghapus, mungkin perlu menyegarkan halaman atau mengubah state lokal
+
+      window.location.reload(); // agar ada animasi reload
     } catch (error) {
       alert(error.message);
     }
@@ -116,7 +117,7 @@ export default function CardCard() {
                 <button
                   className="bg-white hover:bg-red-700 text-red-700 hover:text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline  mt-5 w-[120px] h-14 mr-4"
                   type="button"
-                  onClick={handleDelete}
+                  onClick={() => handleDelete(car.id)}
                 >
                   Delete
                 </button>

@@ -114,7 +114,7 @@ export default function Dashboard() {
         const data = await response.json();
         throw new Error(data.message);
       }
-      
+
       window.location.reload(); // agar ada animasi reload
     } catch (error) {
       alert(error.message);
@@ -132,7 +132,7 @@ export default function Dashboard() {
           <div className="p-4 flex gap-5">
             <div>
               <div className="flex items-center justify-between">
-                <h1 className="font-bold text-xl">List Tweet</h1>
+                <h1 className="font-bold text-xl">List CARS</h1>
                 {isLoggedIn && (
                   <Link to="/create-car">
                     <button
@@ -147,31 +147,34 @@ export default function Dashboard() {
               <table className="border-collapse mt-10 w-full  ">
                 <thead>
                   <tr>
-                    <th className="border px-4 py-2 bg-gray-300 border-gray-300 ">
-                      Nama
+                    <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED]">
+                      No
                     </th>
-                    <th className="border px-4 py-2 bg-gray-300 border-gray-300">
-                      Sewa
+                    <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED] ">
+                      Name
                     </th>
-                    <th className="border px-4 py-2 bg-gray-300 border-gray-300">
-                      Ukuran
+                    <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED]">
+                      Price
                     </th>
-                    <th className="border px-4 py-2 bg-gray-300 border-gray-300">
+                    <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED]">
+                      Category
+                    </th>
+                    {/* <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED]">
                       Foto
-                    </th>
+                    </th> */}
                     <th className="border px-4 py-2 bg-gray-300 border-gray-300">
                       Created_At
                     </th>
-                    <th className="border px-4 py-2 bg-gray-300 border-gray-300">
+                    {/* <th className="border px-4 py-2 bg-gray-300 border-gray-300">
                       Dibuat Oleh
+                    </th> */}
+                    <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED]">
+                      Updated_At
                     </th>
-                    <th className="border px-4 py-2 bg-gray-300 border-gray-300">
+                    <th className="border px-4 py-2 bg-[#CFD4ED] border-[#CFD4ED]">
                       Action
                     </th>
                     {/* <th className="border px-4 py-2 bg-gray-300 border-gray-300">
-                  Updated_At
-                </th>
-                <th className="border px-4 py-2 bg-gray-300 border-gray-300">
                   Deleted_At
                 </th> */}
                   </tr>
@@ -184,8 +187,11 @@ export default function Dashboard() {
                       </td>
                     </tr>
                   ) : (
-                    cars.map((car: CarEntity) => (
+                    cars.map((car: CarEntity, index: number) => (
                       <tr key={car.id}>
+                        <td className="border px-4 py-2 border-gray-300">
+                          {index + 1}
+                        </td>
                         <td className="border px-4 py-2 border-gray-300">
                           {car.nama}
                         </td>
@@ -195,13 +201,13 @@ export default function Dashboard() {
                         <td className="border px-4 py-2 border-gray-300">
                           {car.ukuran}
                         </td>
-                        <td>
+                        {/* <td>
                           <img
                             src={car.foto}
                             alt={`Profile ${car.nama}`}
                             className=" object-fit text-center w-40 h-40"
                           />
-                        </td>
+                        </td> */}
                         <td className="border px-4 py-2 border-gray-300">
                           {format(
                             new Date(car.created_at),
@@ -212,12 +218,21 @@ export default function Dashboard() {
                           )}
                         </td>
                         <td className="border px-4 py-2 border-gray-300">
+                          {format(
+                            new Date(car.updated_at),
+                            "dd MMMM yyyy HH:mm",
+                            {
+                              locale: id,
+                            }
+                          )}
+                        </td>
+                        {/* <td className="border px-4 py-2 border-gray-300">
                           {" "}
                           Dibuat Oleh <strong>{car.user.name}</strong>
-                        </td>
+                        </td> */}
                         <td className="border px-4 py-2 border-gray-300 ">
                           <div className="">
-                            <Link to="/update-car">
+                            <Link to={`/update-car/${car.id}`}>
                               <button
                                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                                 type="button"
@@ -226,7 +241,7 @@ export default function Dashboard() {
                               </button>
                             </Link>
                             <button
-                              className="bg-red-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-5"
+                              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full mt-5"
                               type="button"
                               onClick={() => handleDelete(car.id)}
                             >
